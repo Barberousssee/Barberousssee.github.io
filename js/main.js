@@ -1,4 +1,6 @@
-/*----- constants -----*/
+/**
+ * Constantes des lignes de TicTacToe gagnants
+ */
 const winningCombos = [
     [0, 1, 2],
     [3, 4, 5],
@@ -10,24 +12,21 @@ const winningCombos = [
     [2, 4, 6]
     ];
 
-/*----- app's state (variables) -----*/
 
 let board;
 let turn = 'X';
 let win;
 
-/*----- cached element references -----*/
-
 const squares = Array.from(document.querySelectorAll('#board div'));
 
-/*----- event listeners -----*/
 document.getElementById('board').addEventListener('click', handleTurn);
 const messages = document.querySelector('h2');
 document.getElementById('reset-button').addEventListener('click', init);
 
-
-/*----- functions -----*/
-
+/**
+ * Pour vérifier s'il y a un gagnant
+ * @returns char le gagnant s'il y en a un
+ */
 function getWinner() {
     let winner = null;
     winningCombos.forEach(function(combo, index) {
@@ -36,6 +35,9 @@ function getWinner() {
         return winner ? winner : board.includes('') ? null : 'T';
 };
 
+/**
+ * Placer le X ou le O dans le carré sélectionné
+ */
 function handleTurn() {
     let idx = squares.findIndex(function(square) {
         return square === event.target;
@@ -46,6 +48,9 @@ function handleTurn() {
     render();
 };
 
+/**
+ * Initialiser le tableau
+ */
 function init() {
     board = [
     '', '', '',
@@ -55,6 +60,9 @@ function init() {
     render();
 };
 
+/**
+ * Mettre les valeurs à jour avec l'action exécuté
+ */
 function render() {
     board.forEach(function(mark, index) {
     //this moves the value of the board item into the squares[idx]
@@ -66,93 +74,39 @@ function render() {
 init();
 
 
-/*-----------------*/
 const leBody = document.getElementById('leBody');
 const leCarre = document.querySelectorAll('.square');
 const bas = document.getElementById('bas');
 const monNom = document.getElementById('monNom');
+const themes = ["themeUn", "themeDeux","themeTrois", "themeQuatre"]
+
 let numeroDeTheme = 0;
 
+/**
+ * Changer le thème
+ */
 function changerTheme(){
     numeroDeTheme++
-    if(numeroDeTheme == 4){
+    if(numeroDeTheme == themes.length){
         numeroDeTheme = 0;
     }
 
-    leBody.classList.remove("themeUn", "themeDeux","themeTrois", "themeQuatre");
-    leCarre[0].classList.remove("themeUn", "themeDeux","themeTrois", "themeQuatre");
-    leCarre[1].classList.remove("themeUn", "themeDeux","themeTrois", "themeQuatre");
-    leCarre[2].classList.remove("themeUn", "themeDeux","themeTrois", "themeQuatre");
-    leCarre[3].classList.remove("themeUn", "themeDeux","themeTrois", "themeQuatre");
-    leCarre[4].classList.remove("themeUn", "themeDeux","themeTrois", "themeQuatre");
-    leCarre[5].classList.remove("themeUn", "themeDeux","themeTrois", "themeQuatre");
-    leCarre[6].classList.remove("themeUn", "themeDeux","themeTrois", "themeQuatre");
-    leCarre[7].classList.remove("themeUn", "themeDeux","themeTrois", "themeQuatre");
-    leCarre[8].classList.remove("themeUn", "themeDeux","themeTrois", "themeQuatre");
-    monNom.classList.remove("themeUn", "themeDeux","themeTrois", "themeQuatre");
-    bas.classList.remove("themeUn", "themeDeux","themeTrois", "themeQuatre");
+    for(i=0;i<themes.length;i++){
+        leBody.classList.remove(themes[i]);
+        monNom.classList.remove(themes[i]);
+        bas.classList.remove(themes[i]);
 
-
-    if(numeroDeTheme == 0){
-        leBody.classList.add("themeUn");
-        leCarre[0].classList.add("themeUn");
-        leCarre[1].classList.add("themeUn");
-        leCarre[2].classList.add("themeUn");
-        leCarre[3].classList.add("themeUn");
-        leCarre[4].classList.add("themeUn");
-        leCarre[5].classList.add("themeUn");
-        leCarre[6].classList.add("themeUn");
-        leCarre[7].classList.add("themeUn");
-        leCarre[8].classList.add("themeUn");
-        monNom.classList.add("themeUn");
-        bas.classList.add("themeUn");
+        for(j=0;j<leCarre.length;j++){
+            leCarre[j].classList.remove(themes[i]);
         }
-
-    else if(numeroDeTheme == 1){
-    leBody.classList.add("themeDeux");
-    leCarre[0].classList.add("themeDeux");
-    leCarre[1].classList.add("themeDeux");
-    leCarre[2].classList.add("themeDeux");
-    leCarre[3].classList.add("themeDeux");
-    leCarre[4].classList.add("themeDeux");
-    leCarre[5].classList.add("themeDeux");
-    leCarre[6].classList.add("themeDeux");
-    leCarre[7].classList.add("themeDeux");
-    leCarre[8].classList.add("themeDeux");
-    monNom.classList.add("themeDeux");
-    bas.classList.add("themeDeux");
     }
 
-    else if(numeroDeTheme == 2){
-        leBody.classList.add("themeTrois");
-        leCarre[0].classList.add("themeTrois");
-        leCarre[1].classList.add("themeTrois");
-        leCarre[2].classList.add("themeTrois");
-        leCarre[3].classList.add("themeTrois");
-        leCarre[4].classList.add("themeTrois");
-        leCarre[5].classList.add("themeTrois");
-        leCarre[6].classList.add("themeTrois");
-        leCarre[7].classList.add("themeTrois");
-        leCarre[8].classList.add("themeTrois");
-        monNom.classList.add("themeTrois");
-        bas.classList.add("themeTrois");
-        }
+    leBody.classList.add(themes[numeroDeTheme]);
+    monNom.classList.add(themes[numeroDeTheme]);
+    bas.classList.add(themes[numeroDeTheme]);
 
-    else{
-        leBody.classList.add("themeQuatre");
-        leCarre[0].classList.add("themeQuatre");
-        leCarre[1].classList.add("themeQuatre");
-        leCarre[2].classList.add("themeQuatre");
-        leCarre[3].classList.add("themeQuatre");
-        leCarre[4].classList.add("themeQuatre");
-        leCarre[5].classList.add("themeQuatre");
-        leCarre[6].classList.add("themeQuatre");
-        leCarre[7].classList.add("themeQuatre");
-        leCarre[8].classList.add("themeQuatre");
-        monNom.classList.add("themeQuatre");
-        bas.classList.add("themeQuatre");
-        }
-
-        
-
+    for(i=0;i<leCarre.length;i++){
+        leCarre[i].classList.add(themes[numeroDeTheme]);
+    }
+    
 }
